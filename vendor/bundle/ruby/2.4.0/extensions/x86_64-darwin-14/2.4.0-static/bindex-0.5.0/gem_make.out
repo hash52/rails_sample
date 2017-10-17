@@ -1,0 +1,15 @@
+current directory: /Users/ulmdesign/hashi.hiroki/workspace/ruby/rails_sample/vendor/bundle/ruby/2.4.0/gems/bindex-0.5.0/ext/bindex
+/Users/ulmdesign/.rbenv/versions/2.4.2/bin/ruby -r ./siteconf20171011-14970-s7gun3.rb extconf.rb
+creating Makefile
+
+current directory: /Users/ulmdesign/hashi.hiroki/workspace/ruby/rails_sample/vendor/bundle/ruby/2.4.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" clean
+
+current directory: /Users/ulmdesign/hashi.hiroki/workspace/ruby/rails_sample/vendor/bundle/ruby/2.4.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR="
+compiling cruby.c
+linking shared-object bindex/cruby.bundle
+
+current directory: /Users/ulmdesign/hashi.hiroki/workspace/ruby/rails_sample/vendor/bundle/ruby/2.4.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20171011-14970-1rq283k/bindex
