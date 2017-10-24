@@ -7,6 +7,8 @@ Minitest::Reporters.use!
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  #ApplicationHelperで定義したHelperメソッドをtest環境でも使用できるようにする
+  include ApplicationHelper
 
   # Add more helper methods to be used by all tests here...
 end
