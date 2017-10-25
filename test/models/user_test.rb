@@ -37,4 +37,24 @@ class UserTest < ActiveSupport::TestCase
     @user.email = "a" * 244 + "@example.com"
     assert @user.invalid?
   end
+
+  test "email validation should accept valid addresses" do
+    # %w[a b c] -> ["a","b"","c"]　文字列の配列を素早く作れるテクニック　
+    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+                         first.last@foo.jp alice+bob@baz.cn]
+    valid_addresses.each do |valid_adress|
+      @user.email = valid_adress
+      #第二引数にエラーメッセージを指定。どのemailでテストが失敗したのか特定する。
+      assert @user.valid?, "#{valid_adress.inspect} should be valid"
+    end
+  end
+
+  test "email validation should reject invalid addresses" do
+    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
+                           foo@bar_baz.com foo@bar+baz.com]
+    invalid_addresses.each do |invalid_address|
+      @user.email = invalid_address
+      assert @user.invalid?, "#{invalid_address} should be invalid"
+    end
+  end
 end
