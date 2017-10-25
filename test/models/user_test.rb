@@ -8,7 +8,7 @@ class UserTest < ActiveSupport::TestCase
   #setupメソッドは各テストが走る直前に実行される。ここで宣言したインスタンス変数は、すべてのテスト内で使えるようになる
   def setup
     #? ハッシュをシングルクォートにするとエラーになる。
-    @user = User.new(name: "Example User", email: "user@example.com")
+    @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
   end
 
   test "should be valid" do
