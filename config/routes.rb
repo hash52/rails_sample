@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get '/help',to:'static_pages#help'#,as:'helf' ->/helpでアクセスでき、helf_pathでパスを取得できる
   get '/about',to:'static_pages#about'
   get '/contact',to:'static_pages#contact'
+  # GET /users/new が無効になるわけではない
   get '/signup',to:'users#new'
+  post '/signup', to:'users#create'
   # get 'users/new',as:'signup' /users/new で users#new にアクセスできて、コード内ではsignup_pathでパスを扱える
 
   #RESTfulなUsersリソースで必要となる全てのアクションが利用できるようになる

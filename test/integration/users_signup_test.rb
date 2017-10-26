@@ -12,7 +12,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     #ブロックを実行した前後で、User.countの値が変わらないことをテスト
     assert_no_difference 'User.count' do
       #users_pathに登録失敗するPOSTリクエストを送信
-      post users_path, params: { user: { name:  "",
+      post signup_path, params: { user: { name:  "",
                                          email: "user@invalid",
                                          password:              "foo",
                                          password_confirmation: "bar" } }
@@ -21,6 +21,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/new'
     assert_select 'div#error_explanation'
     assert_select 'div.alert'
+    assert_select "form[action=?]",signup_path
 
   end
 end
