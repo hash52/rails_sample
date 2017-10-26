@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     #@user = User.new(params[:user])
     @user = User.new(user_params)
     if @user.save
+      @user.save
     else
       #パーシャルで使用したrenderと同じメソッド
       render 'new'

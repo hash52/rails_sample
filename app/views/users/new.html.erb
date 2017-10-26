@@ -6,19 +6,20 @@
     <%# @userは新しいユーザなのでRailsが action="/users" method="post"を自動で生成する %>
     <%# CSRFを防いだり、文字コードを指定するinput hiddenも自動で生成される %>
     <%= form_for @user do |f| %>
+      <%= render 'shared/error_messages' %>
       <%# @userの:nameフィールドを設定するラベル付きテキストフィールド要素を生成する %>
       <%# Railsはinputのnameの値を使ってハッシュparams変数を構成する%>
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class:'form-controll' %>
 
       <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, class:'form-controll' %>
 
       <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, class:'form-controll' %>
 
       <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation%>
+      <%= f.password_field :password_confirmation, class:'form-controll'%>
 
       <%= f.submit "Create my account", class: "btn btn-primary"%>
     <% end %>
