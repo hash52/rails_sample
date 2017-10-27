@@ -18,10 +18,11 @@ class UsersController < ApplicationController
     #@user = User.new(params[:user])
     @user = User.new(user_params)
     if @user.save
+      log_in @user
       # flash変数に代入したメッセージは、リダイレクトした直後のページのみ表示する
       # :successに成功時のメッセージを代入するのは強制ではないが、Railsの慣習
       flash[:success] = "Welcome to the Sample App!"
-      
+
       #redirect_to user_url(@user)と等価
       # /users/@user.idにリダイレクトする
       redirect_to @user
