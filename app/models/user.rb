@@ -15,4 +15,12 @@ class User < ApplicationRecord
   # モデル内にpassword_digestという属性が含まれている & bcrypt gem(ハッシュ関数)を使用しているときに使用可
   has_secure_password
 
+  # インスタンスメソッドえ定義する必要がないので、クラスメソッド
+  # 渡された文字列のハッシュ値を返す
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
 end
