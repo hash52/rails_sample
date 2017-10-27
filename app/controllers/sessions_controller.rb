@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
       # ユーザーログイン後にユーザー情報のページにリダイレクトする
     else
       # エラーメッセージを作成する(sessionはActiveRecodのモデルではないのでerrorsオブジェクトを持っていない)
-      flash[:danger] = 'Invalid email/password combination'
-      # bug! renderでテンプレートを強制的に再レンダリングしてもリクエストとみなされないため、flashメッセージが残り続けてしまう
+      flash.now[:danger] = 'Invalid email/password combination'
+      # レンダリングが終わっているページにflashメッセージを表示させ、その後リクエストが発生した時に消滅する
       render 'new'
     end
   end
