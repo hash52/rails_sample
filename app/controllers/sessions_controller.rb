@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
     # authenticate ・・ has_secure_passwordが提供するメソッド
     if user && user.authenticate(params[:session][:password])
       # ユーザーログイン後にユーザー情報のページにリダイレクトする
+      log_in user
+      redirect_to user
     else
       # エラーメッセージを作成する(sessionはActiveRecodのモデルではないのでerrorsオブジェクトを持っていない)
       flash.now[:danger] = 'Invalid email/password combination'
