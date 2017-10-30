@@ -23,6 +23,7 @@ module SessionsHelper
       # @current_userがnilではなければ(存在していれば)、find_byは評価されない
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
+      #raise       # テストがパスすれば、この部分がテストされていないことがわかる
       user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
