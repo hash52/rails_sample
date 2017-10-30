@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  #cookieの保存場所
+  attr_accessor :remember_token
   # DBが常に大文字小文字を区別するインデックスを使っているとは限らない問題への対処
   # ActiveRecordのcallbackメソッドの一つ、before_save . 保存される時点で処理が実行される。
   #before_save { self.email = email.downcase } #右式のselfは省略できる
@@ -21,6 +23,19 @@ class User < ApplicationRecord
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
+  end
+
+  # self.new_token でもクラスメソッドの定義可能
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # 永続セッションのために、ユーザトークンに対応する記憶ダイジェストをDBに保存する
+  def remember
+    # selfが無いと新規にローカル変数が作成されてしまう
+    self.remember_token = User.new_token
+    # update_attributesではないので、バリデーションを素通りさせる
+    update_attribute(:remember_digest, User.digest(remember_token))
   end
 
 end
