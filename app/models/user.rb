@@ -17,25 +17,27 @@ class User < ApplicationRecord
   # モデル内にpassword_digestという属性が含まれている & bcrypt gem(ハッシュ関数)を使用しているときに使用可
   has_secure_password
 
-  # インスタンスメソッドえ定義する必要がないので、クラスメソッド
-  # 渡された文字列のハッシュ値を返す
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                  BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  # self.new_token でもクラスメソッドの定義可能
-  def User.new_token
-    SecureRandom.urlsafe_base64
-  end
-
   # 永続セッションのために、ユーザトークンに対応する記憶ダイジェストをDBに保存する
   def remember
     # selfが無いと新規にローカル変数が作成されてしまう
     self.remember_token = User.new_token
     # update_attributesではないので、バリデーションを素通りさせる
     update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  #　クラスメソッドをまとめて記述できる
+  class << self
+    # 渡された文字列のハッシュ値を返す
+    def digest(string)
+      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                    BCrypt::Engine.cost
+      BCrypt::Password.create(string, cost: cost)
+    end
+
+    # self.new_token でもクラスメソッドの定義可能
+    def new_token
+      SecureRandom.urlsafe_base64
+    end
   end
 
 end
