@@ -82,4 +82,10 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = "a" * 5
     assert @user.invalid?
   end
+
+  # 異なるブラウザで、連続でログアウトしたとき、後発がエラーになるバグのテスト
+  test "authenticated? should return false for a user with nil digest" do
+    # 記憶トークンが使われる前にエラーとなるので、記憶トークンの値は空で構わない
+    assert_not @user.authenticated?('')
+  end
 end
