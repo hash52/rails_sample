@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  # 指定の処理が実行される直前に特定のメソッドを実行する仕組み
+  # onlyをつけないと、全てのアクションに制限の範囲が及ぶ
+  before_action :logged_in_user,only:[:edit, :update]
 
   # GET /users/1
   def show
@@ -55,5 +58,12 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger]="Please log in."
+        redirect_to login_url
+      end
     end
 end
