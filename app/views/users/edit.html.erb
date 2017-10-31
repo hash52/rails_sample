@@ -25,7 +25,8 @@
 
     <div class="gravatar_edit">
       <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
+      <%# target_blankで開いたサイトでwindow.openerを使うと遷移先で親ウィンドウを操作できてしまうのを、rel=noopenerで防ぐ %>
+      <a href="http://gravatar.com/emails" rel="noopener" target="_blank">change</a>
     </div>
   </div>
 </div>
