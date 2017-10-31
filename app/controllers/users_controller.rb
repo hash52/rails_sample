@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   # onlyをつけないと、全てのアクションに制限の範囲が及ぶ
   before_action :logged_in_user,only:[:index, :edit, :update]
   before_action :correct_user, only:[:edit, :update]
+  before_action :admin_user, only: :destroy
 
   def index
     # #paginate(page: ページ番号) params[:page]はwill_paginate二よって自動生成される
@@ -59,6 +60,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
   #private 以降をインデントを下げることで、privateが見つけやすくなる
   private
     #admin属性が含まれていないので、ユーザがパラメータを利用して管理者権限を与えることを防止できる
@@ -77,6 +84,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to root_url unless current_user? @user
+    end
 
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end
