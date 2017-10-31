@@ -15,7 +15,11 @@
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
-             password_confirmation: "foobar")
+             password_confirmation: "foobar",
+             admin: true)
+             #admin属性を追加すると自動でadmin?メソッドが使用できるようになる
+             #user.admin?
+             #user.toggle!(:admin)
 
 99.times do |n|
   name  = Faker::Name.name

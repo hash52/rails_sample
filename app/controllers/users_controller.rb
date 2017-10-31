@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 
   #private 以降をインデントを下げることで、privateが見つけやすくなる
   private
-
+    #admin属性が含まれていないので、ユーザがパラメータを利用して管理者権限を与えることを防止できる
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
