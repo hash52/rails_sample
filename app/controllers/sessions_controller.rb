@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
       log_in @user
       # [:remember_me]は0か1だが、rubyは0でもtrueを返すことに注意
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_to @user
+      # デフォルトでユーザ、セッションに保存したURLがあればそちらにリダイレクトする
+      redirect_back_or @user
     else
       # エラーメッセージを作成する(sessionはActiveRecodのモデルではないのでerrorsオブジェクトを持っていない)
       flash.now[:danger] = 'Invalid email/password combination'

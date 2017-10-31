@@ -55,4 +55,18 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+  # 記憶したURLもしくはデフォルト値にリダイレクト
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # アクセスしようとしたURLを覚えておく
+  def store_location
+    # ユーザがセッション用のcookieを手動で削除してフォームから送信した場合などで、
+    # POSTや PATCH、DELETEリクエストを期待しているURLに対して、(リダイレクトを通して) GETリクエストが送られてしまい、場合によってはエラーになるのを防ぐため、
+    # GETリクエストのときのみ格納するようにする
+    session[:forwarding_url] = request.original_url if request.get?
+  end
 end
