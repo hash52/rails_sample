@@ -35,11 +35,16 @@ class UsersController < ApplicationController
   # GET /users/id/edit
   def edit
     @user = User.find_by params[:id]
+    debugger # params[:id]=2でfind_byしてid=1のユーザが帰ってくるバグがある
   end
+
   # PATCH /users/id/edit
   def update
     @user = User.find(params[:id])
+    # debugger
     if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
     else
       render 'edit'
     end

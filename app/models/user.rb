@@ -10,7 +10,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i #大文字で始まっているので定数
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }# uniqueness: true であるが、大文字小文字は区別しないという意味. (デフォルトでは大文字小文字を区別してしまう)
-  validates :password, presence: true, length:{ minimum: 6 }
+  # has_secure_passwordでは (追加したバリデーションとは別に) オブジェクト生成時に存在性を検証するようになっているので、nilが新規ユーザ登録時に有効にはならない
+  validates :password, presence: true, length:{ minimum: 6 }, allow_nil:true
 
   # 多くの機能を使えるようになるrailsメソッド.
   # 例 仮想的なpassword属性とpassword_confirmation属性に対してバリデーションをする機能も(強制的に)追加されている
