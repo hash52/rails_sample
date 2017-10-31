@@ -36,6 +36,14 @@ class UsersController < ApplicationController
   def edit
     @user = User.find_by params[:id]
   end
+  # PATCH /users/id/edit
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+    else
+      render 'edit'
+    end
+  end
 
   #private 以降をインデントを下げることで、privateが見つけやすくなる
   private
