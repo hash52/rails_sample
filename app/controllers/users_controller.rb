@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   # 指定の処理が実行される直前に特定のメソッドを実行する仕組み
   # onlyをつけないと、全てのアクションに制限の範囲が及ぶ
   before_action :logged_in_user,only:[:edit, :update]
+  before_action :correct_user, only:[:edit, :update]
 
   # GET /users/1
   def show
@@ -65,5 +66,11 @@ class UsersController < ApplicationController
         flash[:danger]="Please log in."
         redirect_to login_url
       end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_url unless @user == current_user
+
     end
 end
