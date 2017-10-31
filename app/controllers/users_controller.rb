@@ -34,8 +34,8 @@ class UsersController < ApplicationController
 
   # GET /users/id/edit
   def edit
-    @user = User.find_by params[:id]
-    debugger # params[:id]=2でfind_byしてid=1のユーザが帰ってくるバグがある
+    @user = User.find params[:id]
+    # @user = User.find_by id:params[:id]
   end
 
   # PATCH /users/id/edit
