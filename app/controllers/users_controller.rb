@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
   # 指定の処理が実行される直前に特定のメソッドを実行する仕組み
   # onlyをつけないと、全てのアクションに制限の範囲が及ぶ
-  before_action :logged_in_user,only:[:edit, :update]
+  before_action :logged_in_user,only:[:index, :edit, :update]
   before_action :correct_user, only:[:edit, :update]
 
+  def index
+    @users = User.all
+  end
   # GET /users/1
   def show
     @user =User.find(params[:id]) #params[:id]は文字列型の"1"だが、findメソッドが自動で整数型に変換する
