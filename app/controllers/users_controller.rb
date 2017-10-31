@@ -32,6 +32,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/id/edit
+  def edit
+    @user = User.find_by params[:id]
+  end
+
   #private 以降をインデントを下げることで、privateが見つけやすくなる
   private
 
